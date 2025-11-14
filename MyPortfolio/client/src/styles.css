@@ -1,0 +1,325 @@
+/*  JavaScript 6th Edition
+    Chapter 1
+    Hands-on Project 1-1
+
+    Filename: styles.css
+*/
+
+/* apply a natural box layout model to all elements */
+* {
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+/* reset rules */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 100%;
+   font: inherit;
+   vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+   display: block;
+}
+
+
+
+
+header .image-text-row {
+  display: flex;
+  align-items: center;      /* Vertically center image and text */
+  gap: 5px;                /* Space between image and text */
+  max-width: 700px;         /* Optional: limit row width */
+  margin: 0 auto;           /* Optional: center row on page */
+}
+
+header .image-text-row img {
+  width: 100px;             /* Set image width */
+  height: auto;             /* Maintain aspect ratio */
+  border-radius: 8px;       /* Optional: rounded corners */
+  object-fit: cover;        /* Crop if needed */
+}
+
+header .text-content {
+  flex: 1;                  /* Take remaining space */
+  font-size: 62px;
+}
+
+article .image-text-row {
+  display: flex;
+  align-items: center;      /* Vertically center image and text */
+  gap: 5px;                /* Space between image and text */
+  max-width: 700px;         /* Optional: limit row width */
+  margin: 0 auto;           /* Optional: center row on page */
+}
+
+article .image-text-row img {
+  width: 300px;             /* Set image width */
+  height: auto;             /* Maintain aspect ratio */
+  border-radius: 8px;       /* Optional: rounded corners */
+  object-fit: cover;        /* Crop if needed */
+}
+
+article .text-content {
+  flex: 1;                  /* Take remaining space */
+  font-size: 18px;
+}
+
+body {
+   line-height: 1;
+   max-width: 900px;
+   background: white;
+   margin: 0 auto;
+   font-family: Verdana, Geneva, sans-serif; 
+}
+
+ol, ul {
+   list-style: none;
+}
+
+/* page header */
+header {
+   background: #330570;
+   width: 100%;
+   color: #FFFFFF;
+   font-size: 36px;
+   text-align: center;
+   line-height: 1.5em;
+   -webkit-border-top-right-radius: 20px;
+   -webkit-border-top-left-radius: 20px;
+   -moz-border-radius-topright: 20px;
+   -moz-border-radius-topleft: 20px;
+   border-top-right-radius: 20px;
+   border-top-left-radius: 20px;
+}
+
+/* main content */
+article {
+   width: 900px;
+   text-align: left;
+   background: #FFCF40;
+   -webkit-border-bottom-right-radius: 20px;
+   -moz-border-radius-bottomright: 20px;
+   border-bottom-right-radius: 20px;
+   -webkit-border-bottom-left-radius: 20px;
+   -moz-border-radius-bottomleft: 20px;
+   border-bottom-left-radius: 20px;
+}
+
+article h2 {
+   font-weight: bold;
+   font-size: 24px;
+   padding: 10px;
+}
+
+article ol li {
+   padding: 10px;
+   margin-left: 35px;
+   list-style-type: decimal;
+}
+
+/* navigation */
+nav {
+   
+   width: 100%;
+   font-size: 22px;
+   
+}
+
+nav ul {
+   
+   text-align: center;
+}
+
+nav ul a li {
+   display: inline-block;
+   padding: 1px 1px;
+   background: rgb(224, 82, 99);
+}
+nav ul.mainmenu a li {
+   -moz-border-radius-topleft: 7px;
+   -moz-border-radius-topright: 7px;
+   -webkit-border-top-left-radius: 7px;
+   -webkit-border-top-right-radius: 7px;
+   border-top-left-radius: 7px;
+   border-top-right-radius: 7px;
+}
+
+nav ul li{
+   color: white;
+}
+
+
+
+/* Dropdown styles */
+nav ul.submenu {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #e05263;
+  min-width: 150px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  z-index: 1000;
+  padding: 0;
+}
+
+/* Ensure the parent li is positioned relatively */
+nav ul.mainmenu li.dropdown {
+  position: relative;
+}
+
+nav ul.mainmenu {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul.mainmenu > li {
+  display: inline-block;
+  position: relative; /* Needed for submenu positioning */
+  margin: 0 2px;
+  vertical-align: top;
+}
+
+nav ul.mainmenu > li > a,
+nav ul.mainmenu > li > #currentpage {
+  display: block;
+  padding: 1px 12px;
+  background: #e05263;
+  color: white;
+  border-radius: 7px 7px 0 0;
+  text-decoration: none;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+nav ul.mainmenu > li > #currentpage {
+  background: #FFCF40;
+  color: black;
+}
+
+nav ul.mainmenu > li > a:hover,
+nav ul.mainmenu > li > #currentpage:hover {
+  background: #ffcf40;
+  color: black;
+}
+
+nav ul.mainmenu li.dropdown:hover > ul.submenu {
+  display: block;
+}
+
+nav ul.submenu li a {
+  display: block;
+  padding: 1px 1px;
+  color: white;
+  text-decoration: underline;
+  background: #e05263;
+  border-radius: 0;
+}
+
+nav ul.submenu li a:hover {
+  background: #ffcf40;
+  color: black;
+}
+
+.paragraph {
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+}
+.stars {
+   display: flex;
+   justify-content: center;
+}
+
+center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.small {
+    font-size: 16px;
+}
+
+table {
+  border-collapse: separate; /* Important: border-spacing only works with 'separate' */
+  border-spacing: 20px 0;    /* 20px between columns, 0px between rows */
+}
+
+
+
+/* main content */
+
+
+article h2 {
+   font-weight: bold;
+   font-size: 24px;
+   padding: 10px;
+}
+
+form {
+   margin: 0 auto;
+}
+
+input {
+   float: none;        /* Remove float */
+  margin: 0 10px 10px 0;  /* Only 6px space to the right */
+  vertical-align: middle; /* Aligns checkbox with text */
+}
+
+label {
+   /*float: left;*/
+   font-size: 1.4em;
+}
+
+
+
+.sitemap {
+   list-style-image: none;
+ padding-left: 0px;            /* Indent nested lists */
+  margin-left: 0;
+}
+
+
+.sitemap li::before {
+  content: "";
+  display: inline-block;
+  width: 24px;           /* Set width of image */
+  height: 24px;          /* Set height of image */
+  margin-right: 12px;    /* Space between image and text */
+  background-image: url('images/star.png');
+  background-size: contain; /* Scales image to fit width/height */
+  background-repeat: no-repeat;
+  vertical-align: middle;    /* Vertically aligns icon with text */
+}
+
+.member{
+   font-size: 16px;
+}
+#registerNow, #clearForm {
+  min-width: 120px;
+  padding: 8px 16px;
+  font-size: 1em;
+}

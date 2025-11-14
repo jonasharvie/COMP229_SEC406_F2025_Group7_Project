@@ -1,0 +1,29 @@
+{
+  "name": "Jonas Harvie1",
+  "email": "jharvie1@my.centennialcollege.ca",
+  "password": "Password1"
+}
+
+{
+  "name": "Jonas Harvie2",
+  "email": "jharvie2@my.centennialcollege.ca",
+  "password": "Password2"
+}
+
+{
+  "name": "Jonas Harvie3",
+  "email": "jharvie3@my.centennialcollege.ca",
+  "password": "Password3"
+}
+
+{
+  "name": "Jonas Harvie4",
+  "email": "jharvie4@my.centennialcollege.ca",
+  "password": "Password4"
+}
+
+{
+  "name": "Jonas Harvie5",
+  "email": "jharvie5@my.centennialcollege.ca",
+  "password": "Password5"
+}
