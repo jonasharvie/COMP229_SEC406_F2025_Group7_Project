@@ -3,7 +3,7 @@
 import { Link } from 'react-router-dom';
 
 // import image
-import JHLogo from './images/logo_transparent.png'
+import SurvUp_Logo from './images/SurvUp_Logo.png'
 
 // define NavBar component
 function NavBar(){
@@ -11,19 +11,19 @@ function NavBar(){
         <header>
         {/*logo and name*/}
         <div class="image-text-row">
-        <img src={JHLogo} alt="JH_logo" width="100" height="100" />
+        <img src={SurvUp_Logo} alt="SurvUp_Logo" width="100" height="100" />
             <div class="text-content">
-                <h1>JONAS HARVIE   </h1>
+                <h1>SurvUp</h1>
             </div>
+            
         </div>
         {/*links in a list*/}
         <nav>
             <ul class="mainmenu">
                 <li><Link to="/">HOME</Link></li>
-                <li><Link to="/about">ABOUT ME</Link></li>
-                <li><Link to="/projects">PROJECTS</Link></li>
-                <li><Link to="/services">SERVICES</Link></li>
-                <li><Link to="/contact">CONTACT ME</Link></li>
+                <li><Link to="/login">LOGIN</Link></li>
+                <li><Link to="/createsurvey">CREATE SURVEY</Link></li>
+                <li><Link to="/services">ANSWER SURVEYS</Link></li>
             </ul>
         </nav>
     </header>

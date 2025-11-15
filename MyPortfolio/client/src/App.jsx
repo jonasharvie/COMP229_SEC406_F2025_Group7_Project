@@ -9,10 +9,8 @@ import './styles.css'
 import Head from './Head.jsx'
 import NavBar from './NavBar.jsx'
 import Home from './Home.jsx'
-import About from './About.jsx'
-import Projects from './Projects.jsx'
-import Services from './Services.jsx'
-import Contact from './Contact.jsx'
+import Login from './Login.jsx'
+import CreateSurvey from './CreateSurvey.jsx'
 
 function App() {
   // declare 'count' state variable
@@ -28,10 +26,8 @@ function App() {
       <Routes>
         {/* oute for each page */}
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/createsurvey" element={<CreateSurvey />} />
       </Routes>
     </Router>
   );

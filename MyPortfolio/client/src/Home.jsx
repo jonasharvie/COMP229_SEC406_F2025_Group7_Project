@@ -1,6 +1,6 @@
 
 // import image
-import Jonas from './images/Jonas.jpg'
+import SurvUp from './images/SurvUp_Logo.png'
 
 // define Home component
 function Home(){
@@ -13,13 +13,15 @@ function Home(){
             
             <div class="image-text-row">
                 {/*image*/}
-                <img src={Jonas} alt="" width="300" />
+                <img src={SurvUp} alt="" width="300" />
                 {/*mission statement text*/}
                 <div class="text-content">
-                    <h2 class="stars">Mission Statement</h2>
                     <p>
-                    Mechanical designer with focus on developing automation processes in the aerospace industry. 
-                    My goal is to gain more knowledge of software and A.I development to apply what I learn to the aerospace industry.
+                    Welcome to SurvUp!<br /><br />
+                    You can:<br /><br />
+                    Sign up, log in, log out, view, update, or delete your user profile.<br /><br />
+                    Create, view, update, or delete your survey.<br /><br />
+                    Answer surveys(not yet functional).<br /><br />
                     </p>
                 </div>
             </div>

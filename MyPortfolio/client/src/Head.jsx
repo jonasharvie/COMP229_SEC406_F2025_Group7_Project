@@ -6,7 +6,7 @@ function Head(){
         {/* eee */}
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-        <title>Jonas Portfolio</title>
+        <title>SurvUp Group 7</title>
         <link rel="stylesheet" href="styles.css" />
         </head>
     )
