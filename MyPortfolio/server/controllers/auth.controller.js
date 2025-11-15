@@ -104,12 +104,25 @@ const signout = (req, res) => {
     message: "signed out",
   });
 };
-
+/*
 const requireSignin = expressjwt({
   secret: config.jwtSecret,
   algorithms: ["HS256"],
   userProperty: "auth",
-  credentialsRequired: false // set to false for testing to circumvent standard errors, this allows the custom error messages in the "me" function 
+  credentialsRequired: true // set to false for testing to circumvent standard errors, this allows the custom error messages in the "me" function 
+});
+*/
+const requireSignin = expressjwt({
+  secret: config.jwtSecret,
+  algorithms: ["HS256"],
+  userProperty: "auth",
+  credentialsRequired: true,
+  getToken: function fromHeaderOrCookie(req) {
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+      return req.headers.authorization.split(' ')[1];
+    }
+    return null;
+  }
 });
 
 const me = async (req, res) => {
@@ -162,9 +175,13 @@ const me = async (req, res) => {
 };
 
 const hasAuthorization = (req, res, next) => {
-  const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
+  console.log("req.profile:", req.profile);
+  console.log("req.auth:", req.auth);
+  console.log("req.profile._id:", req.profile?._id);
+  console.log("req.auth._id:", req.auth?._id);
+  const authorized = req.profile && req.auth && req.profile._id.toString() === req.auth.sub;
   if (!authorized) {
-    return res.status("403").json({
+    return res.status(403).json({
       error: "User is not authorized",
     });
   }
