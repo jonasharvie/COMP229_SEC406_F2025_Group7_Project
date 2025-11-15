@@ -26,9 +26,32 @@ function Home(){
                 </div>
             </div>
             <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </article>
         <br />
         <br />
+        <br />
+            
         </>
     )
 }
