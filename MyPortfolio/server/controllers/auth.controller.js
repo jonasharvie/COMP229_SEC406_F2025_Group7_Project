@@ -68,7 +68,7 @@ const login = async (req, res) => {
       console.log("User Authenticated");
 
       // set expiresIn variable 
-      const expiresIn = 900;
+      const expiresIn = 1800;
 
       // issue access token with { sub } and expiresIn = expiresIn in seconds
       const token = jwt.sign({ sub: user._id }, config.jwtSecret, {
