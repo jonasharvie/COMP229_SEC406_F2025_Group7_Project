@@ -6,9 +6,8 @@ import cors from "cors";
 import helmet from "helmet";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import contactRoutes from "./routes/contact.routes.js";
-import educationRoutes from "./routes/education.routes.js";
-import projectRoutes from "./routes/project.routes.js";
+import surveyquestionRoutes from "./routes/surveyquestion.routes.js";
+
 
 import path from 'path'
 
@@ -26,9 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRoutes);
 app.use("/", authRoutes);
-app.use("/", contactRoutes);
-app.use("/", educationRoutes);
-app.use("/", projectRoutes);
+app.use("/", surveyquestionRoutes);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
