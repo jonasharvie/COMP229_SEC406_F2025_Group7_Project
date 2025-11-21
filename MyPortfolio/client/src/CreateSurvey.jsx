@@ -1,5 +1,27 @@
 // define Login component
+import{useNavigate} from'react-router-dom';
 function CreateSurvey(){
+    const nav = useNavigate();
+    const handleSub= async(e)=>{
+        e.preventDefault();
+        const questionTxt = e.target.surveyQuestion.value;
+        const SurveyData = { surveynumber: Math.floor(Math.random()*1000),question: questionTxt, yes:0, no:0};
+        try{
+            const responce = await fetch('/api/surveyquestions',{method:'POST', headers:{'Content-Type': 'application/json'}, body: JSON.stringify(SurveyData)});
+            if(responce.ok){
+                alert('your survey has been succesfully created');
+                nav('/');
+            }else
+                {
+                    alert('there was a error in creating your survey');
+                }
+            }  catch (err)
+            {
+                console.error(err);
+                alert('server error');
+            }
+        };
+    
     return(
         <>
         <article id="stars">
@@ -7,7 +29,7 @@ function CreateSurvey(){
             <h2 class="stars">Create Survey</h2>
             
             {/*labelled textfields*/}
-            <form id="stars">
+            <form id="stars" onSubmit={handleSub}>
                 <table id="stars">
                     
                     <tr>
@@ -27,49 +49,7 @@ function CreateSurvey(){
                     
                 </table>
             </form>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+           
             <br />
         </article>
         <br />
