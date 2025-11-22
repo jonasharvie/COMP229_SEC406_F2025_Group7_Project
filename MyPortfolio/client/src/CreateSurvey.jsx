@@ -1,24 +1,30 @@
 // define Login component
 import{useNavigate} from'react-router-dom';
 function CreateSurvey(){
-    const nav = useNavigate();
+    const navigator = useNavigate(); // allows navigations
     const handleSub= async(e)=>{
-        e.preventDefault();
-        const questionTxt = e.target.surveyQuestion.value;
-        const SurveyData = { surveynumber: Math.floor(Math.random()*1000),question: questionTxt, yes:0, no:0};
+        e.preventDefault();// prevents pages from refreshing after submission
+        const questionTxt = e.target.surveyQuestion.value; // variable that gets what the user typed into the question box
+        const survey = {};
+        survey.surveynumber= Math.floor(Math.random()*1000);
+        survey.question= questionTxt;
+        survey.yes=0;
+        survey.no=0;
         try{
-            const responce = await fetch('/api/surveyquestions',{method:'POST', headers:{'Content-Type': 'application/json'}, body: JSON.stringify(SurveyData)});
-            if(responce.ok){
+            const suverySubmission = await fetch('/api/surveyquestions',{method:'POST',
+                 headers:{'Content-Type': 'application/json'},
+                  body: JSON.stringify(survey)});
+            //^ tells the server that a new data, json data and json string has been added
+            if(suverySubmission.ok){
                 alert('your survey has been succesfully created');
-                nav('/');
+                navigator('/');
             }else
-                {
+                { 
                     alert('there was a error in creating your survey');
                 }
             }  catch (err)
             {
-                console.error(err);
-                alert('server error');
+                alert('the server had an error');
             }
         };
     
@@ -44,18 +50,10 @@ function CreateSurvey(){
                         <input id="SubmitQuestion" type="submit" value="Submit Question" />
                         <br />
                     </td>
-                    
                     </tr>
-                    
                 </table>
             </form>
-           
-            <br />
         </article>
-        <br />
-        <br />
-        <br />
-        
         </>
     )
 }
