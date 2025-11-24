@@ -1,6 +1,6 @@
 const config = {
     env: process.env.NODE_ENV || 'development', 
-    port: process.env.PORT || 3000,
+    port: process.env.PORT || 5000, // you had it on the wrong port
     jwtSecret: process.env.JWT_SECRET || "YOUR_secret_key", 
     mongoUri: process.env.MONGODB_URI ||"mongodb+srv://jonasharvie_db_user:0s498fGBqmxRsjt0@jonascluster0.zsgttlj.mongodb.net/Portfolio?retryWrites=true&w=majority&appName=JonasCluster0"||
     process.env.MONGO_HOST ||

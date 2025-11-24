@@ -1,7 +1,7 @@
 // define Login component
 import{useNavigate} from'react-router-dom';
 function CreateSurvey(){
-    const navigator = useNavigate(); // allows navigations
+    const navigate = useNavigate(); // allows navigations
     const handleSub= async(e)=>{
         e.preventDefault();// prevents pages from refreshing after submission
         const questionTxt = e.target.surveyQuestion.value; // variable that gets what the user typed into the question box
@@ -11,13 +11,13 @@ function CreateSurvey(){
         survey.yes=0;
         survey.no=0;
         try{
-            const suverySubmission = await fetch('/api/surveyquestions',{method:'POST',
+            const surveySubmission = await fetch('http://localhost:5000/api/surveyquestions',{method:'POST',
                  headers:{'Content-Type': 'application/json'},
                   body: JSON.stringify(survey)});
             //^ tells the server that a new data, json data and json string has been added
-            if(suverySubmission.ok){
+            if(surveySubmission.ok){
                 alert('your survey has been succesfully created');
-                navigator('/');
+                navigate('/');
             }else
                 { 
                     alert('there was a error in creating your survey');
@@ -32,14 +32,14 @@ function CreateSurvey(){
         <>
         <article id="stars">
             {/*heading*/}
-            <h2 class="stars">Create Survey</h2>
+            <h2 className="stars">Create Survey</h2>
             
             {/*labelled textfields*/}
             <form id="stars" onSubmit={handleSub}>
                 <table id="stars">
                     
                     <tr>
-                    <td><label for="surveyQuestionBox">Write a question that can be answered by Yes/No:</label></td>
+                    <td><label htmlFor="surveyQuestionBox">Write a question that can be answered by Yes/No:</label></td>
                     </tr>
                     <tr>
                     <td><input name="surveyQuestion" style={{width: "850px"}} id="surveyQuestionBox" type="text" required /></td>
