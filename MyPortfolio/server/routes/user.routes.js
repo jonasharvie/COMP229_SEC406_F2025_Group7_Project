@@ -1,5 +1,6 @@
 import express from "express";
 
+import { getUserById } from "../controllers/userController.js";
 import authCtrl from "../controllers/auth.controller.js";
 import userCtrl from "../controllers/user.controller.js";
 const router = express.Router();
@@ -7,6 +8,7 @@ router.route("/api/users").post(userCtrl.create);
 router.route("/api/users").get(userCtrl.list);
 router.route("/api/users").delete(userCtrl.removeAll);
 
+router.get("/:id", getUserById);
 router.param("userId", userCtrl.userByID);
 
 router
