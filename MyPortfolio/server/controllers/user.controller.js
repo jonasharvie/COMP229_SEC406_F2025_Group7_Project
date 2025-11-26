@@ -1,6 +1,34 @@
 import User from "../models/user.model.js";
 import extend from "lodash/extend.js";
 import errorHandler from "./error.controller.js";
+
+export const getUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findById(id).select("-passwordHash -__v");
+
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found"
+      });
+    }
+
+    res.status(200).json({
+      status: "ok",
+      data: user
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Server error",
+      error: error.message
+    });
+  }
+};
+
 const create = async (req, res) => {
   const user = new User(req.body);
   try {
