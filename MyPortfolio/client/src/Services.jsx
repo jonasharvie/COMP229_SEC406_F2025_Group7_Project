@@ -4,6 +4,8 @@ function Services() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [submitMessage, setSubmitMessage] = useState("");
 
   useEffect(() => {
     fetch("/api/surveyquestions")
@@ -22,6 +24,62 @@ function Services() {
       .finally(() => setLoading(false));
   }, []);
 
+  const handleAnswerChange = (questionId, answer) => {
+    setSelectedAnswers({
+      ...selectedAnswers,
+      [questionId]: answer
+    });
+  };
+
+  const handleSubmit = async (questionId) => {
+    const answer = selectedAnswers[questionId];
+    
+    if (!answer) {
+      alert("Please select Yes or No before submitting");
+      return;
+    }
+
+    try {
+      // Find the question to get current vote counts
+      const question = questions.find(q => q._id === questionId);
+      
+      // Update the vote count
+      const updatedQuestion = {
+        ...question,
+        yes: answer === 'yes' ? question.yes + 1 : question.yes,
+        no: answer === 'no' ? question.no + 1 : question.no
+      };
+
+      const response = await fetch(`/api/surveyquestions/${questionId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedQuestion)
+      });
+
+      if (response.ok) {
+        // Update the local state to reflect the new vote
+        setQuestions(questions.map(q => 
+          q._id === questionId ? updatedQuestion : q
+        ));
+        
+        // Clear the selected answer for this question
+        const newSelectedAnswers = { ...selectedAnswers };
+        delete newSelectedAnswers[questionId];
+        setSelectedAnswers(newSelectedAnswers);
+        
+        setSubmitMessage(`Thank you for voting on Survey #${question.surveynumber}!`);
+        setTimeout(() => setSubmitMessage(""), 3000);
+      } else {
+        alert("Failed to submit your vote");
+      }
+    } catch (err) {
+      console.error("Error submitting vote:", err);
+      alert("Error submitting your vote");
+    }
+  };
+
   return (
     <>
       <article id="stars">
@@ -30,6 +88,10 @@ function Services() {
         {loading && <p>Loading survey questions...</p>}
 
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+        {submitMessage && (
+          <p style={{ color: "green", fontWeight: "bold" }}>{submitMessage}</p>
+        )}
 
         {!loading && !error && questions.length === 0 && (
           <p>No surveys available.</p>
@@ -50,9 +112,43 @@ function Services() {
                         fontSize: 13,
                         color: "#555",
                         marginTop: 6,
+                        marginBottom: 10
                       }}
                     >
                       Current Results — Yes: {q.yes} | No: {q.no}
+                    </div>
+
+                    <div style={{ marginTop: 10 }}>
+                      <label style={{ marginRight: 20 }}>
+                        <input
+                          type="radio"
+                          name={`question-${q._id}`}
+                          value="yes"
+                          checked={selectedAnswers[q._id] === 'yes'}
+                          onChange={() => handleAnswerChange(q._id, 'yes')}
+                        />
+                        Yes
+                      </label>
+                      <label style={{ marginRight: 20 }}>
+                        <input
+                          type="radio"
+                          name={`question-${q._id}`}
+                          value="no"
+                          checked={selectedAnswers[q._id] === 'no'}
+                          onChange={() => handleAnswerChange(q._id, 'no')}
+                        />
+                        No
+                      </label>
+                      <button
+                        onClick={() => handleSubmit(q._id)}
+                        style={{
+                          marginLeft: 10,
+                          padding: "5px 15px",
+                          cursor: "pointer"
+                        }}
+                      >
+                        Submit
+                      </button>
                     </div>
                   </td>
                 </tr>
