@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 // Helper function to get full URL
 function getFullURL(path) {
-    return `http://localhost:3000${path}`;
+    return `http://localhost:5000${path}`;
 }
 
 // Helper function to save token

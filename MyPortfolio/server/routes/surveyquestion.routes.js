@@ -12,8 +12,10 @@ router.param("surveyquestionId", surveyquestionCtrl.surveyquestionByID);
 
 router
   .route("/api/surveyquestions/:surveyquestionId")
-  .get(authCtrl.requireSignin, surveyquestionCtrl.read)
-  .put(authCtrl.requireSignin, surveyquestionCtrl.update)
+  .get(surveyquestionCtrl.read)
+  .put(surveyquestionCtrl.update)
+  //.get(authCtrl.requireSignin, surveyquestionCtrl.read)
+  //.put(authCtrl.requireSignin, surveyquestionCtrl.update)
   .delete(authCtrl.requireSignin, surveyquestionCtrl.remove);
 
 export default router;
