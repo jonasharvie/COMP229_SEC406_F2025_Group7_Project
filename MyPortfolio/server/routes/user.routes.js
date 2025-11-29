@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getUserById } from "../controllers/userController.js";
+import { getUserById } from "../controllers/user.controller.js";
 import authCtrl from "../controllers/auth.controller.js";
 import userCtrl from "../controllers/user.controller.js";
 const router = express.Router();
