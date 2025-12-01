@@ -8,7 +8,7 @@ router.route("/api/users").post(userCtrl.create);
 router.route("/api/users").get(userCtrl.list);
 router.route("/api/users").delete(userCtrl.removeAll);
 
-router.get("/:id", getUserById);
+
 router.param("userId", userCtrl.userByID);
 
 router
@@ -17,6 +17,6 @@ router
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
 
-
+router.get("/api/user//:id", getUserById);
 
 export default router;

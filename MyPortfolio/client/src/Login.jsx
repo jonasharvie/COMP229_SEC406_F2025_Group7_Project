@@ -122,7 +122,7 @@ function Login(){
     setSuccessMessage('');
     
     try {
-        // First, get the token and user ID
+        // Step 1: Login
         const loginRes = await fetch(getFullURL("/users/login"), {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -131,13 +131,13 @@ function Login(){
         
         if (!loginRes.ok) {
             const data = await loginRes.json();
-            throw new Error(data.error || "Login failed");
+            throw new Error("Login failed: " + (data.error || "Unknown error"));
         }
         
         const loginData = await loginRes.json();
         const token = loginData.data.accessToken;
         
-        // Get user ID
+        // Step 2: Get user ID
         const meRes = await fetch(getFullURL("/me"), {
             method: "GET",
             headers: {"Authorization": `Bearer ${token}`}
@@ -150,7 +150,7 @@ function Login(){
         const meData = await meRes.json();
         const userId = meData.data.user.id;
         
-        // Delete the user
+        // Step 3: Delete the user
         const deleteRes = await fetch(getFullURL(`/api/users/${userId}`), {
             method: "DELETE",
             headers: {"Authorization": `Bearer ${token}`}
@@ -164,6 +164,7 @@ function Login(){
         setSuccessMessage('User deleted successfully!');
         setEmail('');
         setPassword('');
+        setName('');
         
     } catch(error) {
         setError(error.message || "Delete Failed");

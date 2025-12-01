@@ -126,30 +126,22 @@ const requireSignin = expressjwt({
 });
 
 const me = async (req, res) => {
-
   try {
-    // extract token from Authorization header
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    console.log("Me endpoint called");
+    console.log("req.auth:", req.auth);
+    
+    // req.auth.sub is set by requireSignin middleware
+    if (!req.auth || !req.auth.sub) {
+      console.log("No auth or sub found");
       return res.status(401).json({ error: "INVALID_TOKEN" });
     }
     
-    // remove 'Bearer ' prefix
-    const token = authHeader.substring(7); 
-    
-    // verify and decode the JWT token
-    let decoded;
-    try {
-      decoded = jwt.verify(token, config.jwtSecret);
-    } catch (err) {
-      return res.status(401).json({ error: "INVALID_TOKEN" });
-    }
-    
-    // get user id from JWT token
-    const userId = decoded.sub;
+    const userId = req.auth.sub;
+    console.log("User ID from token:", userId);
 
     // get the user by its ID from the database
     const user = await User.findById(userId).select('_id email name created');
+    console.log("User found:", user);
     
     // if no user then return the following response
     if (!user) {
@@ -170,10 +162,10 @@ const me = async (req, res) => {
     });
   } catch (error) {
     // return error
-    return res.status(500).json({ error });
+    console.error("Error in me endpoint:", error);
+    return res.status(500).json({ error: error.message });
   }
 };
-
 const hasAuthorization = (req, res, next) => {
   console.log("req.profile:", req.profile);
   console.log("req.auth:", req.auth);

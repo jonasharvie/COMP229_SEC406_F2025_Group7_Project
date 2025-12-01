@@ -7,6 +7,5 @@ router.route("/auth/signout").get(authCtrl.signout);
 // routes to sign up, login, and authenticate
 router.route("/users/signup").post(authCtrl.signup);
 router.route("/users/login").post(authCtrl.login);
-router.route("/me").get(authCtrl.me);
-//router.route("/me").get(authCtrl.requireSignin, authCtrl.me);
+router.route("/me").get(authCtrl.requireSignin, authCtrl.me);
 export default router;
