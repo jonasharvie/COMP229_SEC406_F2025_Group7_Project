@@ -23,7 +23,7 @@ function NavBar(){
                 <li><Link to="/">HOME</Link></li>
                 <li><Link to="/login">LOGIN</Link></li>
                 <li><Link to="/createsurvey">CREATE SURVEY</Link></li>
-                <li><Link to="/services">ANSWER SURVEYS</Link></li>
+                <li><Link to="/surveyanswers">ANSWER SURVEYS</Link></li>
             </ul>
         </nav>
     </header>

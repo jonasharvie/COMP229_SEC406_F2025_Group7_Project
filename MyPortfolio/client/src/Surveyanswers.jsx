@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Services() {
+function Surveyanswers() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -161,4 +161,4 @@ function Services() {
   );
 }
 
-export default Services;
+export default Surveyanswers;

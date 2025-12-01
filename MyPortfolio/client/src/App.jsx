@@ -8,7 +8,7 @@ import NavBar from './NavBar.jsx';
 import Home from './Home.jsx';
 import Login from './Login.jsx';
 import CreateSurvey from './CreateSurvey.jsx';
-import Services from './Services.jsx';   // ✅ ADD THIS
+import Surveyanswers from './Surveyanswers.jsx';   // ✅ ADD THIS
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createsurvey" element={<CreateSurvey />} />
-        <Route path="/services" element={<Services />} />  {/* ✅ ADD THIS */}
+        <Route path="/surveyanswers" element={<Surveyanswers />} />  {/* ✅ ADD THIS */}
       </Routes>
     </Router>
   );
