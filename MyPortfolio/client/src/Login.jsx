@@ -21,6 +21,7 @@ function Login(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [name, setName] = useState('');
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
@@ -169,6 +170,67 @@ function Login(){
         setError(error.message || "Delete Failed");
     }
 }
+    async function handleUpdateuserFormSubmission(e){
+        e.preventDefault();
+        setError(null);
+        setSuccessMessage('');
+    
+        try {
+            // First, get the token and user ID
+            const loginRes = await fetch(getFullURL("/users/login"), {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email, password, name})
+            });
+        
+            if (!loginRes.ok) {
+                const data = await loginRes.json();
+                throw new Error(data.error || "Login failed");
+            }
+        
+            const loginData = await loginRes.json();
+            const token = loginData.data.accessToken;
+
+            // Get user ID
+            const meRes = await fetch(getFullURL("/me"), {
+                method: "GET",
+                headers: {"Authorization": `Bearer ${token}`}
+            });
+        
+            if (!meRes.ok) {
+                throw new Error("Could not retrieve user information");
+            }
+        
+            const meData = await meRes.json();
+            const userId = meData.data.user._id;
+            
+            //Update Username & Password
+            const updateRes = await fetch(getFullURL(`/api/users/${userId}`), {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({email, newPassword, name})
+            });
+
+            if (password == newPassword || !newPassword) {
+                throw new Error(data.error || "New password error");
+            }
+
+            if (!updateRes.ok) {
+                const data = await updateRes.json();
+                throw new Error(data.error || "Update failed");
+            }
+
+            setSuccessMessage('User information updated successfully! Please sign in again.');
+            removeToken();
+            setName('');
+            setEmail('');
+            setPassword('');
+            setNewPassword('');
+        
+        } catch(error) {
+            setError(error.message || "Update Failed");
+        }
+    }
 
     return(
         <>
@@ -224,6 +286,10 @@ function Login(){
                     <td><input name="password" id="passwordBox" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></td>
                     </tr>
                     <tr>
+                    <td><label htmlFor="newPasswordBox">New Password:</label></td>
+                    <td><input name="newPassword" id="newPasswordBox" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} /></td>
+                    </tr>
+                    <tr>
                     <td>
                         <br />
                         <input id="Login" type="button" value="Log in" onClick={handleLoginFormSubmission}/>
@@ -233,6 +299,8 @@ function Login(){
                         <input id="Signup" type="button" value="Sign up" onClick={handleSignupFormSubmission}/>
                         <br />
                         <input id="Deleteuser" type="button" value="Delete User" onClick={handleDeleteuserFormSubmission}/>
+                        <br />
+                        <input id="Updateuser" type="button" value="Update User" onClick={handleUpdateuserFormSubmission}/>
                     </td>
                     
                     </tr>
