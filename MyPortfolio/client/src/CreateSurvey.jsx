@@ -4,7 +4,7 @@ function CreateSurvey(){
     const navigate = useNavigate(); // allows navigations
     const handleSub= async(e)=>{
         e.preventDefault();// prevents pages from refreshing after submission
-        const questionTxt = e.target.surveyQuestion.value; // variable that gets what the user typed into the question box
+        const questionTxt = document.getElementById('surveyQuestionBox').value; // variable that gets what the user typed into the question box
         const survey = {};
         survey.surveynumber= Math.floor(Math.random()*1000);
         survey.question= questionTxt;
@@ -27,7 +27,32 @@ function CreateSurvey(){
                 alert('the server had an error');
             }
         };
-    
+   const DeleteSurvey = async (e) => {
+    e.preventDefault(); // Prevent page refresh
+    // Get the survey number from a text field
+    const surveyNumber = document.getElementById('deleteQuestionBox').value;
+    if (!surveyNumber) {
+        alert("Please enter a survey number to delete.");
+        return;
+    }
+    try {
+        // Send DELETE request to backend (fixed: fetch is a function, not template literal)
+        const response = await fetch(`/api/surveyquestions/number/${parseInt(surveyNumber)}`, {
+            method: 'DELETE'
+        });
+ 
+        if (response.ok) {
+            alert('Survey successfully deleted!');
+            document.getElementById('deleteQuestionBox').value = ''; // Clear the input
+        } else {
+            const data = await response.json();
+            alert(data.error || 'Failed to delete survey');
+        }
+    } catch (err) {
+        alert('Server error occurred');
+        console.error(err);
+    }
+};
     return(
         <>
         <article id="stars">
@@ -35,7 +60,7 @@ function CreateSurvey(){
             <h2 className="stars">Create Survey</h2>
             
             {/*labelled textfields*/}
-            <form id="stars" onSubmit={handleSub}>
+            <form id="stars">
                 <table id="stars">
                     
                     <tr>
@@ -47,7 +72,20 @@ function CreateSurvey(){
                     <tr>
                     <td>
                         <br />
-                        <input id="SubmitQuestion" type="submit" value="Submit Question" />
+                        <input id="SubmitQuestion" type="button" value="Submit Question" onClick={handleSub}/>
+                        <br />
+                    </td>
+                    </tr>
+                    <tr>
+                    <td><label htmlFor="deleteQuestionBox">Enter question number to be deleted :</label></td>
+                    </tr>
+                    <tr>
+                    <td><input name="deleteQuestion" style={{width: "850px"}} id="deleteQuestionBox" type="text" required /></td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <br />
+                        <input id="DeleteQuestion" type="button" value="Delete Question" onClick={DeleteSurvey}/>
                         <br />
                     </td>
                     </tr>

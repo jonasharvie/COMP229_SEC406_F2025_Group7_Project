@@ -86,4 +86,26 @@ const removeAll = async (req, res) => {
   }
 };
 
-export default { create, surveyquestionByID, read, list, remove, update, removeAll };
+const removeBySurveyNumber = async (req, res) => {
+  try {
+    const { surveynumber } = req.params;
+    let deletedSurveyQuestion = await SurveyQuestion.findOneAndDelete({ 
+      surveynumber: parseInt(surveynumber) 
+    });
+    if (!deletedSurveyQuestion) {
+      return res.status(404).json({
+        error: "Survey question not found with that survey number",
+      });
+    }
+    res.json({
+      message: "Successfully deleted survey question",
+      deletedSurveyQuestion
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+export default { create, surveyquestionByID, read, list, remove, update, removeAll, removeBySurveyNumber};

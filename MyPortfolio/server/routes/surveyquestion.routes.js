@@ -18,4 +18,5 @@ router
   //.put(authCtrl.requireSignin, surveyquestionCtrl.update)
   .delete(authCtrl.requireSignin, surveyquestionCtrl.remove);
 
+router.route("/api/surveyquestions/number/:surveynumber").delete(surveyquestionCtrl.removeBySurveyNumber);
 export default router;
