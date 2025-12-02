@@ -17,6 +17,6 @@ router
   .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
   .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
 
-router.get("/api/user//:id", getUserById);
+router.get("/api/user/:id", getUserById);
 
 export default router;
