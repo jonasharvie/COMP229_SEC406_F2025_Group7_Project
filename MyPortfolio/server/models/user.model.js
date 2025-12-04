@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -28,5 +29,13 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
+UserSchema.methods.setPassword = async function(password) {
+  const salt = await bcrypt.genSalt(10);
+  this.passwordHash = await bcrypt.hash(password, salt);
+};
+
+UserSchema.methods.checkPassword = async function(password) {
+  return bcrypt.compare(password, this.passwordHash);
+};
 
 export default mongoose.model("User", UserSchema);
