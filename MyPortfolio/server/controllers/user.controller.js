@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import extend from "lodash/extend.js";
 import errorHandler from "./error.controller.js";
+import bcrypt from "bcrypt";
 
 export const getUserById = async (req, res) => {
   try {
@@ -52,9 +53,9 @@ const list = async (req, res) => {
     });
   }
 };
-const userByID = async (req, res, next, id) => {
+export const userByID = async (req, res, next, id) => {
   try {
-    let user = await User.findById(id);
+    const user = await User.findById(id);
     if (!user)
       return res.status(400).json({
         error: "User not found",
@@ -72,15 +73,34 @@ const read = (req, res) => {
   req.profile.salt = undefined;
   return res.json(req.profile);
 };
-const update = async (req, res) => {
+const authSub = (req, res, next) => {
+  if (req.auth && req.auth._id) { 
+    req.auth.sub == req.auth._id.toString();
+  }
+  next();
+}
+export const update = async (req, res) => {
   try {
-    let user = req.profile;
-    user = extend(user, req.body);
+    console.log("Auth Header: ", req.headers.authorization);
+    const userId = req.params.userId;
+    if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    if (req.body.name) user.name = req.body.name;
+    if (req.body.email) user.email = req.body.email;
+
+    if (req.body.password) {
+      await user.setPassword(req.body.password);
+    }
+    
     user.updated = Date.now();
     await user.save();
-    user.hashed_password = undefined;
-    user.salt = undefined;
-    res.json(user);
+
+    const { passwordHash, ...userData } = user.toObject();
+    res.json(userData);
+
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
