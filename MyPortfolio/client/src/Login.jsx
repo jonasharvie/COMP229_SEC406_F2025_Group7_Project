@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import API_BASE_URL from './config.js';
 
 // Helper function to get full URL
 function getFullURL(path) {
-    return `http://localhost:5000${path}`;
+    return `${API_BASE_URL}${path}`;
 }
 
 // Helper function to save token
@@ -351,4 +352,4 @@ function Login(){
     )
 }
 // export the Login component as default
-export default Login
+export default Login;
