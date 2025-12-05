@@ -1,7 +1,8 @@
+import API_BASE_URL from './config.js';
 
 async function getUser(userId) {
   try {
-    const res = await fetch(`http://localhost:5000/users/${userId}`, {
+    const res = await fetch(`${API_BASE_URL}/users/${userId}`, {
       headers: {
         "Content-Type": "application/json",
       },

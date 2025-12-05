@@ -1,5 +1,7 @@
 // define Login component
 import{useNavigate} from'react-router-dom';
+import API_BASE_URL from './config.js';
+
 function CreateSurvey(){
     const navigate = useNavigate(); // allows navigations
     const handleSub= async(e)=>{
@@ -11,7 +13,7 @@ function CreateSurvey(){
         survey.yes=0;
         survey.no=0;
         try{
-            const surveySubmission = await fetch('http://localhost:5000/api/surveyquestions',{method:'POST',
+            const surveySubmission = await fetch(`${API_BASE_URL}/api/surveyquestions`,{method:'POST',
                  headers:{'Content-Type': 'application/json'},
                   body: JSON.stringify(survey)});
             //^ tells the server that a new data, json data and json string has been added

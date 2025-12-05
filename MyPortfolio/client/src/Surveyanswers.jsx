@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from './config.js';
 
 function Surveyanswers() {
   const [questions, setQuestions] = useState([]);
@@ -8,7 +9,7 @@ function Surveyanswers() {
   const [submitMessage, setSubmitMessage] = useState("");
 
   useEffect(() => {
-    fetch("/api/surveyquestions")
+    fetch(`${API_BASE_URL}/api/surveyquestions`)
       .then(async (res) => {
         if (!res.ok) {
           const payload = await res.json().catch(() => ({}));

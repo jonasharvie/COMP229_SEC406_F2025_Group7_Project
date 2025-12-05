@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { getUser } from "./userService";
+import API_BASE_URL from './config.js';
 
 function getFullURL(path) {
-    return `http://localhost:5000${path}`;
+    return `${API_BASE_URL}${path}`;
 }
 
 export default function User() {
