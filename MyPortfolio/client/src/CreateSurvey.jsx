@@ -39,7 +39,7 @@ function CreateSurvey(){
     }
     try {
         // Send DELETE request to backend (fixed: fetch is a function, not template literal)
-        const response = await fetch(`/api/surveyquestions/number/${parseInt(surveyNumber)}`, {
+        const response = await fetch(`${API_BASE_URL}/api/surveyquestions/number/${parseInt(surveyNumber)}`, {
             method: 'DELETE'
         });
  
