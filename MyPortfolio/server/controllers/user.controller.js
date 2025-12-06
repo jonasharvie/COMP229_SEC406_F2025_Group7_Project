@@ -92,7 +92,8 @@ export const update = async (req, res) => {
     if (req.body.email) user.email = req.body.email;
 
     if (req.body.password) {
-      await user.setPassword(req.body.password);
+      user.passwordHash = await bcrypt.hash(req.body.password, 10);
+      user.markModified('passwordHash');
     }
     
     user.updated = Date.now();
