@@ -19,9 +19,8 @@ function Home(){
                     <p>
                     Welcome to SurvUp!<br /><br />
                     You can:<br /><br />
-                    Sign up, log in, log out, view, update, or delete your user profile.<br /><br />
-                    Create, view, update, or delete your survey.<br /><br />
-                    Answer surveys(not yet functional).<br /><br />
+                    Sign up (C), log in, log out, view (R), update (U), or delete (D) your user profile.<br /><br />
+                    Create (C), view (R), update (U), or delete (D) your survey.<br /><br />
                     </p>
                 </div>
             </div>
