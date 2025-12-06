@@ -51,7 +51,7 @@ function Surveyanswers() {
         no: answer === 'no' ? question.no + 1 : question.no
       };
 
-      const response = await fetch(`/api/surveyquestions/${questionId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/surveyquestions/${questionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
